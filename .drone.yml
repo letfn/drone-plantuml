@@ -118,13 +118,12 @@ steps:
 - name: kaniko
   image: letfn/drone-kaniko
   settings:
-    args: --destination=letfn/python
-    cache: true
+    args: --destination=letfn/drone-plantuml
+    cache: false
     cache_repo: defn/cache
-    dockerfile: alt/Dockerfile
     password:
       from_secret: docker_password
-    repo: letfn/python
+    repo: letfn/drone-plantuml
     skip_tls_verify: true
     tag: latest
     username:
@@ -154,4 +153,18 @@ steps:
 depends_on:
 - build
 
+---
+kind: pipeline
+type: docker
+name: diagrams
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: local
+  image: letfn/drone-plantuml
+  settings:
+    args: example.uml
 ...

@@ -1,9 +1,11 @@
 FROM letfn/python
 
-COPY --chown=app:app requirements.txt /app/src/
-RUN . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt
-COPY --chown=app:app src /app/src
+USER root
+RUN mkdir -p /usr/share/man/man1
+RUN apt-get update && apt-get install -y default-jre
+RUN apt-get update && apt-get install -y plantuml
+USER app
 
-COPY service /service
+COPY plugin /plugin
 
-ENTRYPOINT [ "/tini", "--", "/service" ]
+ENTRYPOINT [ "/tini", "--", "/plugin" ]
