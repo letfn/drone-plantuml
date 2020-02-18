@@ -2,4 +2,7 @@
 title: Example
 ---
 
-huh
+![example](example.png)
+
+![sample](sample.png)
+

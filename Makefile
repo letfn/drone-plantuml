@@ -8,8 +8,8 @@ menu:
 all: # Run everything except build
 	$(MAKE) fmt
 	$(MAKE) lint
+	$(MAKE) diagrams
 	$(MAKE) docs
-	$(MAKE) test
 
 fmt: # Format with isort, black
 	@echo
@@ -36,6 +36,10 @@ requirements: # Compile requirements
 build: # Build container
 	@echo
 	drone exec --pipeline $@ --secret-file ../.drone.secret
+
+diagrams: # Generate diagrams with PlantUML
+	@echo
+	drone exec --pipeline $@
 
 watch: # Watch for changes
 	@trap 'exit' INT; while true; do fswatch -0 src content | while read -d "" event; do case "$$event" in *.py) figlet woke; make lint test; break; ;; *.md) figlet docs; make docs; ;; esac; done; sleep 1; done
