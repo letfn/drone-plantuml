@@ -4,4 +4,4 @@
 #
 #    pip-compile --output-file=/tmp/requirements.in.txt /drone/src/requirements.in
 #
-pydantic==1.4
+pydantic==1.6.2
